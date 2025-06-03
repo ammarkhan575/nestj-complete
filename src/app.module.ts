@@ -8,11 +8,13 @@ import { OrderModule } from './order/order.module';
 import config from '../config';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { JobsModule } from './jobs/jobs.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggerInterceptor } from './interceptors/logger.interceptor';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      expandVariables : true,
+      expandVariables: true,
       isGlobal: true,
       load: config
     }),
@@ -21,10 +23,13 @@ import { JobsModule } from './jobs/jobs.module';
     JobsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    // set interceptor at module level
+    { provide: APP_INTERCEPTOR, useClass: LoggerInterceptor }
+  ],
 })
-export class AppModule implements NestModule{
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes({path: '*', method: RequestMethod.ALL})
+    // consumer.apply(AuthMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL })
   }
 }

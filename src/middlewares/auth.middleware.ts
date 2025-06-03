@@ -8,6 +8,7 @@ function verifyJwtToken(token:string) {
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
     use(req: any, res: any, next: (error?: any) => void) {
+        next();
         const token = req.headers.authorization?.split(" ")[1];
 
         // verification logic
