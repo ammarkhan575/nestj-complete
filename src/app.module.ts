@@ -7,6 +7,7 @@ import { OrderController } from './order/order.controller';
 import { OrderModule } from './order/order.module';
 import config from '../config';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { JobsModule } from './jobs/jobs.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
       load: config
     }),
     UserModule,
-    OrderModule
+    OrderModule,
+    JobsModule
   ],
   controllers: [AppController],
   providers: [AppService],
