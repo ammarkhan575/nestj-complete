@@ -10,17 +10,19 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
 import { JobsModule } from './jobs/jobs.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       expandVariables: true,
       isGlobal: true, // import krne ki jaroorat nhi pdegi
-      load: config
+      load: config // array of config files
     }),
     UserModule,
     OrderModule,
-    JobsModule
+    JobsModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService,
