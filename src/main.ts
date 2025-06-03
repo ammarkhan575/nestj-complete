@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { authMiddleware } from './middlewares/auth.middleware';
 import { LoggerInterceptor } from './interceptors/logger.interceptor';
+import { ConfigService } from '@nestjs/config';
 
 
 async function bootstrap() {
@@ -17,10 +18,11 @@ async function bootstrap() {
   // app.use(authMiddleware)
 
   app.useGlobalPipes(new ValidationPipe());
-
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('PORT');
   // set interceptor at global level
   // app.useGlobalInterceptors( new LoggerInterceptor())
-  
+  // await app.listen(port ?? 3000);
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

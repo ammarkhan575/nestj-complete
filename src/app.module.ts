@@ -15,7 +15,7 @@ import { LoggerInterceptor } from './interceptors/logger.interceptor';
   imports: [
     ConfigModule.forRoot({
       expandVariables: true,
-      isGlobal: true,
+      isGlobal: true, // import krne ki jaroorat nhi pdegi
       load: config
     }),
     UserModule,
